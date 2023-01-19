@@ -49,4 +49,11 @@ public class Driver {
         this.name = name;
         this.mobile = mobile;
     }
+
+    public Driver(Long id, String name, String mobile) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.mobile = mobile;
+    }
 }

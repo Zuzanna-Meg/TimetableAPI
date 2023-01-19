@@ -58,4 +58,12 @@ public class Bus {
         this.type = type;
         this.access = access;
     }
+
+    public Bus(Long id, Long seats, String type, String access) {
+        super();
+        this.id = id;
+        this.seats = seats;
+        this.type = type;
+        this.access = access;
+    }
 }

@@ -35,7 +35,8 @@ public class DriverController {
             Driver driver = driverdata.get();
             driver.setName(newDriver.getName());
             driver.setMobile(newDriver.getMobile());
-            return new ResponseEntity<>(driverRepository.save(driver), HttpStatus.OK);
+            driverRepository.save(driver);
+            return new ResponseEntity<>(driver, HttpStatus.OK);
         } else {
             throw new DriverNotFound("Invalid Driver Id");
         }

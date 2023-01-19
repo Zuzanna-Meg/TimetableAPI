@@ -36,7 +36,8 @@ public class BusController {
             bus.setSeats(newbus.getSeats());
             bus.setType(newbus.getType());
             bus.setAccess(newbus.getAccess());
-            return new ResponseEntity<>(busRepository.save(bus), HttpStatus.OK);
+            busRepository.save(bus);
+            return new ResponseEntity<>(bus, HttpStatus.OK);
         } else {
             throw new BusNotFound("Invalid Bus Id");
         }
