@@ -32,4 +32,13 @@ public class GlobalExceptionHandlerTests {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    public void stopNotFound_ReturnsCorrectHttpResponse() {
+        GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
+
+        ResponseEntity<ErrorMessage> response = exceptionHandler.stopNotFound(new Exception(), mockWebRequest);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }

@@ -24,4 +24,11 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(StopNotFound.class)
+    public ResponseEntity<ErrorMessage> stopNotFound(Exception e, WebRequest request){
+        ErrorMessage errors = new ErrorMessage(404, new Date(), e.getMessage(), "Stop Not Found");
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
 }
