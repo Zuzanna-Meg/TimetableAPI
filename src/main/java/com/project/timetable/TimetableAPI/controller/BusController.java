@@ -30,9 +30,9 @@ public class BusController {
     //amend bus
     @PutMapping("/{id}")
     public ResponseEntity<Bus> updateBus(@PathVariable("id") Long id, @RequestBody Bus newbus) {
-        Optional<Bus> busdata = busRepository.findById(id);
-        if (busdata.isPresent()) {
-            Bus bus = busdata.get();
+        Optional<Bus> busData = busRepository.findById(id);
+        if (busData.isPresent()) {
+            Bus bus = busData.get();
             bus.setSeats(newbus.getSeats());
             bus.setType(newbus.getType());
             bus.setAccess(newbus.getAccess());
@@ -45,7 +45,7 @@ public class BusController {
     //get all
     @GetMapping
     public ResponseEntity<List<Bus>> getAllBuses() {
-        List<Bus> buses = new ArrayList<Bus>();
+        List<Bus> buses = new ArrayList<>();
         busRepository.findAll().forEach(buses::add);
         return new ResponseEntity<>(buses, HttpStatus.OK);
     }
@@ -54,9 +54,9 @@ public class BusController {
     @GetMapping("/{id}")
     public ResponseEntity<Bus> getBusById (@PathVariable("id") Long id) {
 
-        Optional<Bus> busdata = busRepository.findById(id);
-        if (busdata.isPresent()) {
-            return new ResponseEntity<>(busdata.get(), HttpStatus.OK);
+        Optional<Bus> busData = busRepository.findById(id);
+        if (busData.isPresent()) {
+            return new ResponseEntity<>(busData.get(), HttpStatus.OK);
         } else {
             throw new BusNotFound("Invalid Bus Id");
         }
@@ -66,8 +66,8 @@ public class BusController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Bus> deleteBus (@PathVariable("id") Long id) {
 
-        Optional<Bus> busdata = busRepository.findById(id);
-        if (busdata.isPresent()) {
+        Optional<Bus> busData = busRepository.findById(id);
+        if (busData.isPresent()) {
             busRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
