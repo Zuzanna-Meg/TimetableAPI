@@ -21,12 +21,12 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_URL: ${{ secrets.DB_URL }}
-        run: mvn clean package
+        run: mvn clean install
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: java-app
+          name: app
           path: '${{ github.workspace }}/target/*.jar'
           
           
@@ -42,7 +42,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: java-app
+          name: app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
