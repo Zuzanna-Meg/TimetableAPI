@@ -31,4 +31,18 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RouteNotFound.class)
+    public ResponseEntity<ErrorMessage> routeNotFound(Exception e, WebRequest request){
+        ErrorMessage errors = new ErrorMessage(404, new Date(), e.getMessage(), "Route Not Found");
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DeleteDenied.class)
+    public ResponseEntity<ErrorMessage> deleteDenied(Exception e, WebRequest request){
+        ErrorMessage errors = new ErrorMessage(405, new Date(), e.getMessage(), "Deletion Request Denied");
+
+        return new ResponseEntity<>(errors, HttpStatus.METHOD_NOT_ALLOWED);
+    }
 }

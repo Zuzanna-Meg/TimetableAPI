@@ -1,5 +1,7 @@
 # Timetable API
-Backend API for the Timetable project
+Backend API for *Journey Pro: Enhanced Timetables* project 
+
+> :link: [GitHub Link](https://github.com/Zuzanna-Meg/TimetableAPI)
 
 ### Running the application locally
 

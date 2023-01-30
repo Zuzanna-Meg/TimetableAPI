@@ -1,6 +1,8 @@
 package com.project.timetable.TimetableAPI.controller;
 
+import com.project.timetable.TimetableAPI.entity.Route;
 import com.project.timetable.TimetableAPI.entity.Stop;
+import com.project.timetable.TimetableAPI.repository.RouteRepository;
 import com.project.timetable.TimetableAPI.repository.StopRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +32,8 @@ public class StopControllerTests {
 
     @Mock
     private StopRepository stopRepository;
+    @Mock
+    private RouteRepository routeRepository;
 
     @InjectMocks
     private StopController stopController;
@@ -79,6 +84,18 @@ public class StopControllerTests {
     @Test
     public void deleteStop_ReturnsNoContentStatus() {
         when(stopRepository.findById(ID)).thenReturn(Optional.of(STOP_DATA));
+        when(routeRepository.findAll()).thenReturn(new ArrayList<Route>());
+
+        ResponseEntity<Stop> response = stopController.deleteStop(ID);
+
+        assertThat(response.getBody()).isNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    public void deleteStop_ReturnsMethodNotAllowedStatus_WhenStopInUse() {
+        when(stopRepository.findById(ID)).thenReturn(Optional.of(STOP_DATA));
+        when(routeRepository.findAll()).thenReturn(new ArrayList<Route>());
 
         ResponseEntity<Stop> response = stopController.deleteStop(ID);
 

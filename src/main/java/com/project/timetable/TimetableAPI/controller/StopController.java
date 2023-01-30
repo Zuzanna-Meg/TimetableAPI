@@ -1,8 +1,11 @@
 package com.project.timetable.TimetableAPI.controller;
 
 
+import com.project.timetable.TimetableAPI.entity.Route;
 import com.project.timetable.TimetableAPI.entity.Stop;
+import com.project.timetable.TimetableAPI.exception.DeleteDenied;
 import com.project.timetable.TimetableAPI.exception.StopNotFound;
+import com.project.timetable.TimetableAPI.repository.RouteRepository;
 import com.project.timetable.TimetableAPI.repository.StopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,8 @@ public class StopController {
 
     @Autowired
     StopRepository stopRepository;
+    @Autowired
+    RouteRepository routeRepository;
 
     @PostMapping
     public ResponseEntity<Stop> createStop(@RequestBody Stop stop) {
@@ -64,10 +69,25 @@ public class StopController {
 
         Optional<Stop> stopData = stopRepository.findById(id);
         if (stopData.isPresent()) {
+            if (stopCurrentlyInUse(id)){
+                throw new DeleteDenied("Stop Currently In Use");
+            }
             stopRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             throw new StopNotFound("Invalid Stop Id");
         }
+    }
+
+    private boolean stopCurrentlyInUse(Long id){
+        List<Route> routes = new ArrayList<>();
+        routeRepository.findAll().forEach(routes::add);
+        for (Route route : routes){
+            if (route.getDepartureStop().getId().equals(id)
+                    || route.getDestinationStop().getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
