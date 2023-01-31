@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-    url: ${DB_URL}
+    username: admin-user
+    password: VGZgv6tDAbrBcJn
+    url: jdbc:sqlserver://timetable-project.database.windows.net:1433;database=TimetableDB;user=admin-user@timetable-project;password=VGZgv6tDAbrBcJn;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
   jpa:
     show-sql: 'true'
     hibernate:
